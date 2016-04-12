@@ -43,6 +43,16 @@
     <Compile Include="ChildBusiness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aries.Data\Aries.Data.csproj">
+      <Project>{04349e1c-3cff-4481-b8ea-1fa2791d5dc6}</Project>
+      <Name>Aries.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aries.Model\Aries.Model.csproj">
+      <Project>{4d5a427c-e82a-4abc-8017-98edbdb04097}</Project>
+      <Name>Aries.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
