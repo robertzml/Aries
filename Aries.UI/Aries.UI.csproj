@@ -105,6 +105,16 @@
   <ItemGroup>
     <Folder Include="Data\" />
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Aries.Business\Aries.Business.csproj">
+      <Project>{55380837-d3c8-4241-bd7e-7ad8e80898c5}</Project>
+      <Name>Aries.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aries.Model\Aries.Model.csproj">
+      <Project>{4d5a427c-e82a-4abc-8017-98edbdb04097}</Project>
+      <Name>Aries.Model</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

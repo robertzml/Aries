@@ -11,6 +11,8 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Aries.Business;
+using Aries.Model;
 
 namespace Aries.UI
 {
@@ -22,6 +24,25 @@ namespace Aries.UI
         public AddChildWindow()
         {
             InitializeComponent();
+        }
+
+        private void buttonSave_Click(object sender, RoutedEventArgs e)
+        {
+            string name = this.textBoxName.Text;
+            DateTime birth = this.calendarBirth.SelectedDate.Value;
+
+            Child child = new Child
+            {
+                Name = name,
+                Birth = birth
+            };
+
+            ChildBusiness childBusiness = new ChildBusiness();
+            ErrorCode result = childBusiness.Add(child);
+            if (result == ErrorCode.Success)
+            {
+                this.Close();
+            }
         }
     }
 }

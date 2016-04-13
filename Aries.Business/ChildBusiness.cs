@@ -37,7 +37,7 @@ namespace Aries.Business
         {
             try
             {
-                string sql = string.Format("INSERT Child(Name, Birth) VALUES('{0}', '{1}')", data.Name, data.Birth);
+                string sql = string.Format("INSERT INTO Child(Name, Birth) VALUES('{0}', '{1}')", data.Name, data.Birth);
                 this.sqlite.ExecuteNonQuery(sql);
                 return ErrorCode.Success;
             }
