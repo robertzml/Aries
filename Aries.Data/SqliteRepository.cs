@@ -4,7 +4,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Data;
-using System.Data.SQLite;   
+using System.Data.SQLite;
+using Aries.Model;
 
 namespace Aries.Data
 {
@@ -37,7 +38,7 @@ namespace Aries.Data
         /// <summary>
         /// 参数
         /// </summary>
-        private Dictionary<string, string> parameters;
+        private Dictionary<string, object> parameters;
 
         /// <summary>
         /// 错误消息
@@ -113,7 +114,7 @@ namespace Aries.Data
             if (datasource != "")
                 this.datasource = datasource;
             this.connection = new SQLiteConnection("data source = " + this.datasource);
-            this.parameters = new Dictionary<string, string>();
+            this.parameters = new Dictionary<string, object>();
             this.isOpen = false;
         }
 
@@ -154,9 +155,45 @@ namespace Aries.Data
         /// </summary>
         /// <param name="key">参数名</param>
         /// <param name="value">参数值</param>
-        public void AddParameter(string key, string value)
+        public void AddParameter(string key, object value)
         {
             parameters.Add(key, value);
+        }
+
+        public void AddChildImage(ChildImage image)
+        {
+            this.Open();
+            try
+            {               
+                using (SQLiteTransaction transaction = connection.BeginTransaction())
+                {
+                    using (SQLiteCommand command = new SQLiteCommand(connection))
+                    {
+                        string sql = "INSERT INTO ImageStore(ChildId, ImageDate, IsMain, ImageTitle, ImageBlob) " +
+                            "VALUES(@ChildId, @ImageDate, @IsMain, @ImageTitle, @ImageBlob)";
+
+                        command.CommandText = sql;
+                        command.Parameters.Add("@ChildId", DbType.Int32).Value = image.ChildId;
+                        command.Parameters.Add("@ImageDate", DbType.String).Value = image.Date.ToString();
+                        command.Parameters.Add("@IsMain", DbType.Int32).Value = Convert.ToInt32(image.IsMain);
+                        command.Parameters.Add("@ImageTitle", DbType.String).Value = image.Title;
+                        command.Parameters.Add("@ImageBlob", DbType.Binary).Value = image.Blob;
+
+                        command.ExecuteNonQuery();
+                    }
+
+                    transaction.Commit();
+                }
+            }
+            catch(Exception e)
+            {
+                this.errorMessage = e.Message;
+            }
+            finally
+            {
+                this.Close();
+                this.parameters.Clear();
+            }
         }
 
         /// <summary>
@@ -173,10 +210,10 @@ namespace Aries.Data
                     using (SQLiteCommand command = new SQLiteCommand(connection))
                     {
                         command.CommandText = sql;
-                        foreach (KeyValuePair<string, string> kvp in this.parameters)
+                        foreach (KeyValuePair<string, object> kvp in this.parameters)
                         {
                             command.Parameters.Add(new SQLiteParameter(kvp.Key, kvp.Value));
-                        }
+                        }                     
 
                         command.ExecuteNonQuery();
                     }
@@ -209,7 +246,7 @@ namespace Aries.Data
                 {
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
                     command.CommandText = sql;
-                    foreach (KeyValuePair<string, string> kvp in this.parameters)
+                    foreach (KeyValuePair<string, object> kvp in this.parameters)
                     {
                         command.Parameters.Add(new SQLiteParameter(kvp.Key, kvp.Value));
                     }
@@ -245,7 +282,7 @@ namespace Aries.Data
                 {
                     SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
                     command.CommandText = sql;
-                    foreach (KeyValuePair<string, string> kvp in this.parameters)
+                    foreach (KeyValuePair<string, object> kvp in this.parameters)
                     {
                         command.Parameters.Add(new SQLiteParameter(kvp.Key, kvp.Value));
                     }
@@ -283,7 +320,7 @@ namespace Aries.Data
             using (SQLiteCommand command = new SQLiteCommand(connection))
             {
                 command.CommandText = sql;
-                foreach (KeyValuePair<string, string> kvp in this.parameters)
+                foreach (KeyValuePair<string, object> kvp in this.parameters)
                 {
                     command.Parameters.Add(new SQLiteParameter(kvp.Key, kvp.Value));
                 }

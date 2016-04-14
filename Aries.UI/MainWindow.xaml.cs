@@ -12,6 +12,12 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Forms;
+using Aries.Business;
+using Aries.Model;
+using System.IO;
+using System.Drawing;
+using System.Drawing.Imaging;
 
 namespace Aries.UI
 {
@@ -29,6 +35,38 @@ namespace Aries.UI
         {
             AddChildWindow window = new AddChildWindow();
             window.ShowDialog();
+        }
+
+        private void buttonSelectImage_Click(object sender, RoutedEventArgs e)
+        {
+            ImageBusiness imageBusiness = new ImageBusiness();
+
+            OpenFileDialog dialog = new OpenFileDialog();
+            dialog.Filter = "JPG|*.jpg|BMP|*.bmp|PNG|*.png";
+            dialog.Multiselect = true;
+            if (dialog.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            {
+                for(int i = 0; i < dialog.FileNames.Length; i++)
+                {
+                    ChildImage image = new ChildImage();
+                    image.ChildId = 1;
+                    image.Date = DateTime.Now;
+                    image.IsMain = true;
+                    image.Title = dialog.SafeFileNames[i];
+                    
+                    FileStream picStream = File.OpenRead(dialog.FileNames[i]);
+                    byte[] bArray = new byte[picStream.Length];
+                    picStream.Read(bArray, 0, bArray.Length);
+                    picStream.Close();
+                    image.Blob = bArray;
+
+                    var img = System.Drawing.Image.FromFile(dialog.FileNames[i]);
+                    PropertyItem[] items = img.PropertyItems;
+                    
+
+                    imageBusiness.Add(image);
+                }
+            }
         }
     }
 }

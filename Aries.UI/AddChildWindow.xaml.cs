@@ -21,11 +21,14 @@ namespace Aries.UI
     /// </summary>
     public partial class AddChildWindow : Window
     {
+        #region Constructor
         public AddChildWindow()
         {
             InitializeComponent();
         }
+        #endregion //Constructor
 
+        #region Event
         private void buttonSave_Click(object sender, RoutedEventArgs e)
         {
             string name = this.textBoxName.Text;
@@ -43,6 +46,11 @@ namespace Aries.UI
             {
                 this.Close();
             }
+            else
+            {
+                MessageBox.Show("添加失败");
+            }
         }
+        #endregion //Event
     }
 }
