@@ -37,7 +37,6 @@
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="Microsoft.CSharp" />
@@ -111,6 +110,10 @@
     <ProjectReference Include="..\Aries.Business\Aries.Business.csproj">
       <Project>{55380837-d3c8-4241-bd7e-7ad8e80898c5}</Project>
       <Name>Aries.Business</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Aries.ImageProcess\Aries.ImageProcess.csproj">
+      <Project>{cb5e0d55-df20-4094-8a61-1b7718a06ab4}</Project>
+      <Name>Aries.ImageProcess</Name>
     </ProjectReference>
     <ProjectReference Include="..\Aries.Model\Aries.Model.csproj">
       <Project>{4d5a427c-e82a-4abc-8017-98edbdb04097}</Project>

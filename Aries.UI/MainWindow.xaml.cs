@@ -16,8 +16,7 @@ using System.Windows.Forms;
 using Aries.Business;
 using Aries.Model;
 using System.IO;
-using System.Drawing;
-using System.Drawing.Imaging;
+using Aries.ImageProcess;
 
 namespace Aries.UI
 {
@@ -40,6 +39,7 @@ namespace Aries.UI
         private void buttonSelectImage_Click(object sender, RoutedEventArgs e)
         {
             ImageBusiness imageBusiness = new ImageBusiness();
+            
 
             OpenFileDialog dialog = new OpenFileDialog();
             dialog.Filter = "JPG|*.jpg|BMP|*.bmp|PNG|*.png";
@@ -60,9 +60,8 @@ namespace Aries.UI
                     picStream.Close();
                     image.Blob = bArray;
 
-                    var img = System.Drawing.Image.FromFile(dialog.FileNames[i]);
-                    PropertyItem[] items = img.PropertyItems;
-                    
+                    ImageExif imageExif = new ImageExif(dialog.FileNames[i]);
+                    image.Date = imageExif.DateTime;
 
                     imageBusiness.Add(image);
                 }

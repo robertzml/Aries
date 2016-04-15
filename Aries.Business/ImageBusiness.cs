@@ -40,6 +40,13 @@ namespace Aries.Business
                 return ErrorCode.Exception;
             }
         }
+
+        public ChildImage Read(DateTime date)
+        {
+
+
+            return null;
+        }
         #endregion //Method
     }
 }
