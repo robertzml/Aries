@@ -13,6 +13,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aries.Data", "Aries.Data\Ar
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aries.ImageProcess", "Aries.ImageProcess\Aries.ImageProcess.csproj", "{CB5E0D55-DF20-4094-8A61-1B7718A06AB4}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aries.FormClient", "Aries.FormClient\Aries.FormClient.csproj", "{5B6A396E-0D59-4C11-8A2E-FD6374D57AEE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "App_Data", "App_Data", "{46F6DF81-78E5-4E26-9480-B18C35DDFBD6}"
+	ProjectSection(SolutionItems) = preProject
+		App_Data\aries.db = App_Data\aries.db
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +46,10 @@ Global
 		{CB5E0D55-DF20-4094-8A61-1B7718A06AB4}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{CB5E0D55-DF20-4094-8A61-1B7718A06AB4}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{CB5E0D55-DF20-4094-8A61-1B7718A06AB4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5B6A396E-0D59-4C11-8A2E-FD6374D57AEE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5B6A396E-0D59-4C11-8A2E-FD6374D57AEE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5B6A396E-0D59-4C11-8A2E-FD6374D57AEE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5B6A396E-0D59-4C11-8A2E-FD6374D57AEE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

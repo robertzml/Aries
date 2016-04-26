@@ -51,7 +51,7 @@ namespace Aries.UI
                     ChildImage image = new ChildImage();
                     image.ChildId = 1;
                     image.Date = DateTime.Now;
-                    image.IsMain = true;
+                 
                     image.Title = dialog.SafeFileNames[i];
                     
                     FileStream picStream = File.OpenRead(dialog.FileNames[i]);

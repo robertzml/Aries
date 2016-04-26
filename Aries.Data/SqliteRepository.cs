@@ -160,6 +160,10 @@ namespace Aries.Data
             parameters.Add(key, value);
         }
 
+        /// <summary>
+        /// 添加图片
+        /// </summary>
+        /// <param name="image">图片对象</param>
         public void AddChildImage(ChildImage image)
         {
             this.Open();
@@ -169,15 +173,17 @@ namespace Aries.Data
                 {
                     using (SQLiteCommand command = new SQLiteCommand(connection))
                     {
-                        string sql = "INSERT INTO ImageStore(ChildId, ImageDate, IsMain, ImageTitle, ImageBlob) " +
-                            "VALUES(@ChildId, @ImageDate, @IsMain, @ImageTitle, @ImageBlob)";
+                        string sql = "INSERT INTO ImageStore(Id, ChildId, FileName, ImageDate, ImageTitle, ImageBlob, Description) " +
+                            "VALUES(@Id, @ChildId, @FileName, @ImageDate, @ImageTitle, @ImageBlob, @Description)";
 
                         command.CommandText = sql;
+                        command.Parameters.Add("@Id", DbType.String).Value = image.Id.ToString();
                         command.Parameters.Add("@ChildId", DbType.Int32).Value = image.ChildId;
-                        command.Parameters.Add("@ImageDate", DbType.String).Value = image.Date.ToString();
-                        command.Parameters.Add("@IsMain", DbType.Int32).Value = Convert.ToInt32(image.IsMain);
+                        command.Parameters.Add("@FileName", DbType.String).Value = image.FileName;
+                        command.Parameters.Add("@ImageDate", DbType.String).Value = image.Date.ToString();                        
                         command.Parameters.Add("@ImageTitle", DbType.String).Value = image.Title;
                         command.Parameters.Add("@ImageBlob", DbType.Binary).Value = image.Blob;
+                        command.Parameters.Add("@Description", DbType.String).Value = image.Description;
 
                         command.ExecuteNonQuery();
                     }
@@ -194,6 +200,34 @@ namespace Aries.Data
                 this.Close();
                 this.parameters.Clear();
             }
+        }
+
+        public List<ChildImage> ReadImages()
+        {
+            List<ChildImage> data = new List<ChildImage>();
+
+            try
+            {
+                this.Open();
+
+                using (SQLiteCommand command = new SQLiteCommand(connection))
+                {
+                    SQLiteDataAdapter adapter = new SQLiteDataAdapter(command);
+                    command.CommandText = "SELECT * FROM ImageStore";
+
+                }
+            }
+            catch(Exception e)
+            {
+                this.errorMessage = e.Message;
+            }
+            finally
+            {
+                this.Close();
+                this.parameters.Clear();
+            }
+
+            return data;
         }
 
         /// <summary>
